@@ -12,3 +12,12 @@ http://www-bcf.usc.edu/~gareth/ISL/
 
 Lab R code (official website)
 http://www-bcf.usc.edu/~gareth/ISL/code.html
+
+
+####
+
+R for data science (replication for improve the R coding)
+
+https://r4ds.had.co.nz/
+
+
