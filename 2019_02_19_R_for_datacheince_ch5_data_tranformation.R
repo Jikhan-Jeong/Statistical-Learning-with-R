@@ -192,3 +192,89 @@ not_cancelled %>%
   )
 
 ## 5.6.4 Useful summary functions
+
+## 5.6.4 Useful summary functions
+
+not_cancelled %>%
+  group_by(year, month, day) %>%
+  summarise(
+    avg_delay1 = mean(arr_delay),
+    avg_delay2 = mean(arr_delay[arr_delay > 0]) # the average positive delay
+  )
+
+# Measures of spread: sd(x), IQR(x), mad(x). The root mean squared deviation, 
+# or standard deviation sd(x), is the standard measure of spread. The interquartile range IQR(x) 
+# and median absolute deviation mad(x) are robust equivalents that may be more useful if you have outliers.
+
+not_cancelled %>%
+  group_by(dest) %>%
+  summarise(distance_sd = sd(distance)) %>%
+  arrange(desc(distance_sd))
+
+# Measures of rank: min(x), quantile(x, 0.25), max(x). Quantiles are a generalisation of the median.
+# For example, quantile(x, 0.25) will find a value of x that is greater than 25% of the values, and 
+# less than the remaining 75%.
+
+not_cancelled %>%
+  group_by(year, month, day) %>%
+  summarise(
+    first = min(dep_time),
+    last = max(dep_time)
+  )
+
+not_cancelled %>%
+  group_by(year, month, day) %>%
+  summarise(
+    first_dep = first(dep_time),
+    last_dep = last(dep_time)
+  )
+
+not_cancelled %>%
+  group_by(year, month, day) %>%
+  mutate(r = min_rank(desc(dep_time))) %>%
+  filter(r %in% range(r)) # %in% Test if shorter vectors are in longer vectors
+
+not_cancelled %>%
+  group_by(year, month, day) %>%
+  mutate(r = min_rank(desc(dep_time))) %>%
+  filter(r %in% range(r))
+
+not_cancelled %>%
+  group_by(dest) %>%
+  summarise(carriers = n_distinct(carrier)) %>% ## n_distinct unique value, n() the current group count
+  arrange(desc(carriers))
+
+not_cancelled %>%
+  count(tailnum, wt= distance)
+
+not_cancelled %>%
+  group_by(year, month, day) %>%
+  summarise(n_early = sum(dep_time < 500))
+
+not_cancelled %>%
+  group_by(year, month, day) %>%
+  summarise(hour_perc = mean(arr_delay >  60))
+
+daily <- group_by(flights, year, month, day)
+(per_day <- summarise(daily, flights = n()))
+
+(per_month <- summarise(per_day, flights = sum(flights)))            
+
+daily %>%
+  ungroup() %>%
+  summarise(flights =n())
+
+flights_sml %>%
+  group_by(year, month, day) %>%
+  filter(rank(desc(arr_delay)) < 10)
+
+popular_dests <- flights %>%
+  group_by(dest) %>%
+  filter(n() > 365)
+
+popular_dests
+
+popular_dests %>%
+  filter(arr_delay > 0) %>%
+  mutate(prop_delay = arr_delay / sum(arr_delay)) %>%
+  select(year:day, dest, arr_delay, prop_delay)
