@@ -3,7 +3,7 @@
 
 # 1. Construct a generative model that produces the same type of data as you are trying to model. 
 #    Assume prior probability distributions over all the parameters that you want to estimate.
-#    Just as when doing standard Bayesian modelling these distributions represents the model¡¯s information
+#    Just as when doing standard Bayesian modelling these distributions represents the modelÂ¡Â¯s information
 #    regarding the parameters before seeing any data.
 
 # 2. Sample tentative parameters values from the prior distributions, plug these into the generative model
@@ -51,7 +51,7 @@ c(unique=sum(sock_counts==1), pairs=sum(sock_counts=2))
 
 # The generative model above needs adequate prior distributions for its parameters, 
 # ** parameters ~~~ (1) n_socks, (2) n_pairs, (3) n_odd 
-# (n_picked is the data and will be used to estimate the parameter¡¯s values).
+# (n_picked is the data and will be used to estimate the parameterÂ¡Â¯s values).
 
 
 # # (1) n_sock prior is negative binomial -> a negative binomial random generation, rnbinom(mu, size)
