@@ -1,0 +1,46 @@
+---
+title: "4-21-2022 Drop column example in R"
+author: "Jikhan Jeong"
+date: '2022 4 19 '
+output: html_document
+---
+# 4-21-2022 Drop column example in R
+* name: JJ
+* 4-21-2022
+* how to remove the columns for students
+* ref: https://datacornering.com/how-to-quickly-drop-columns-in-r-in-data-frame/
+
+
+# IRIS
+* this is default dataset
+* your team dataset is data.frame, it is the same with iris dataset (150,5)
+* 1. remove the column number
+* 2. remove with the column names
+* 3. using package with select() method. 
+* in here, I gave you with two example. Remove the two columns as "Sepal.Length" and "Sepal.Width"
+
+```{r}
+class(iris)
+dim(iris)
+```
+
+```{r}
+iris
+```
+
+```{r}
+colnames(iris)
+```
+
+
+```{r}
+# put column number
+iris2 <-iris[-c(1,2)];iris2
+```
+
+```{r}
+remove_column_name_list <-c("Sepal.Length", "Sepal.Width")
+iris3 <-iris[!(names(iris) %in% remove_column_name_list )];iris3
+
+```
+
